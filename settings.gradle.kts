@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Smartphone Spec"
-include ':app'
+include(":app", ":data", ":domain")

@@ -147,6 +147,25 @@ object Dependencies {
         val implementation = arrayListOf<String>().apply {
             add(reflect)
         }
+
+        object Ktor {
+            private const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:${Version.ktor}"
+            private const val core = "io.ktor:ktor-client-core:${Version.ktor}"
+            private const val logging = "io.ktor:ktor-client-logging:${Version.ktor}"
+            private const val okhttp = "io.ktor:ktor-client-okhttp:${Version.ktor}"
+            private const val resources = "io.ktor:ktor-client-resources:${Version.ktor}"
+            const val serialization = "io.ktor:ktor-serialization-kotlinx-json:${Version.ktor}"
+
+            val implementation = arrayListOf<String>().apply {
+                add(contentNegotiation)
+                add(core)
+                add(logging)
+                add(okhttp)
+                add(resources)
+                add(serialization)
+            }
+
+        }
     }
 
     object Material {
@@ -167,7 +186,7 @@ object Dependencies {
 
     object Paging {
         private const val compose = "androidx.paging:paging-compose:${Version.pagingCompose}"
-        private const val runtime = "androidx.paging:paging-runtime-ktx:${Version.paging}"
+        const val runtime = "androidx.paging:paging-runtime-ktx:${Version.paging}"
 
         val implementation = arrayListOf<String>().apply {
             add(compose)
@@ -175,16 +194,9 @@ object Dependencies {
         }
     }
 
-    object SquareUp {
-        private const val core = "com.squareup.retrofit2:converter-moshi:${Version.retrofit}"
-        private const val kotlin = "com.squareup.moshi:moshi-kotlin:${Version.moshi}"
-        private const val logging = "com.squareup.okhttp3:logging-interceptor:${Version.okHttp}"
-
-        val implementation = arrayListOf<String>().apply {
-            add(core)
-            add(kotlin)
-            add(logging)
-        }
+    object Project {
+        const val data = ":data"
+        const val domain = ":domain"
     }
 }
 

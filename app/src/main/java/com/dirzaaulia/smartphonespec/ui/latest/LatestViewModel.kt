@@ -2,7 +2,7 @@ package com.dirzaaulia.smartphonespec.ui.latest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dirzaaulia.smartphonespec.data.response.LatestPhonesResponse
+import com.dirzaaulia.smartphonespec.domain.data.response.LatestPhonesResponse
 import com.dirzaaulia.smartphonespec.repository.Repository
 import com.dirzaaulia.smartphonespec.utils.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,12 +1,13 @@
 plugins {
-    id("com.android.application") version Version.toolsBuildGradle apply false
-    id("org.jetbrains.kotlin.android") version Version.kotlinGradle apply false
-    id("org.jetbrains.kotlin.kapt") version Version.kotlinGradle apply false
-    id("org.jetbrains.kotlin.plugin.parcelize") version Version.kotlinGradle apply false
-    id("com.google.dagger.hilt.android") version Version.hilt apply false
-    id("com.diffplug.spotless") version Version.spotless apply false
+    id(Plugins.Project.app) version Version.toolsBuildGradle apply false
+    id(Plugins.Project.android) version Version.kotlinGradle apply false
+    id(Plugins.Project.kapt) version Version.kotlinGradle apply false
+    id(Plugins.Project.kotlinParcelize) version Version.kotlinGradle apply false
+    id(Plugins.Project.hilt) version Version.hilt apply false
+    id(Plugins.Project.spotless) version Version.spotless apply false
+    id(Plugins.Project.serialization) version Version.serialization apply false
 }
 
-tasks.register("clean",Delete::class){
+tasks.register(AppConfig.Task.clean, Delete::class){
     delete(rootProject.buildDir)
 }
