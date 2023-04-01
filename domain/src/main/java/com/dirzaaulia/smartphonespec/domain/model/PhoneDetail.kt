@@ -1,7 +1,7 @@
-package com.dirzaaulia.smartphonespec.domain.data.model
+package com.dirzaaulia.smartphonespec.domain.model
 
 import androidx.annotation.Keep
-import com.dirzaaulia.smartphonespec.domain.data.Constant
+import com.dirzaaulia.smartphonespec.domain.Constant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

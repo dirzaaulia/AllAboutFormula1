@@ -1,4 +1,4 @@
-package com.dirzaaulia.smartphonespec.domain.data
+package com.dirzaaulia.smartphonespec.domain
 
 object Constant {
     //String

@@ -8,11 +8,10 @@ plugins {
 }
 
 android {
-    namespace = AppConfig.namespace
+    namespace = AppConfig.namespaceApp
     compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = AppConfig.namespace
         minSdk = AppConfig.minSdk
         targetSdk = AppConfig.targetSdk
         versionCode = AppConfig.versionCode
@@ -70,9 +69,15 @@ android {
     kotlinOptions {
         jvmTarget = AppConfig.Kotlin.jvmTarget
 
-        // Enable Coroutines and Flow APIs
-        freeCompilerArgs = freeCompilerArgs + AppConfig.Kotlin.freeCompilerArgs
-
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            // Avoid having to stutter experimental annotations all over the codebase
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=kotlinx.coroutines.FlowPreview",
+            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+        )
     }
 
     buildFeatures {

@@ -1,5 +1,7 @@
 object AppConfig {
-    const val namespace = "com.dirzaaulia.smartphonespec"
+    const val namespaceApp = "com.dirzaaulia.smartphonespec"
+    const val namespaceData = "com.dirzaaulia.smartphonespec.data"
+    const val namespaceDomain = "com.dirzaaulia.smartphonespec.domain"
     const val compileSdk = 33
     const val minSdk = 26
     const val targetSdk = 33
@@ -22,14 +24,14 @@ object AppConfig {
         const val jvmVersion = 11
         const val jvmTarget = "11"
 
-        const val freeCompilerArgs =
+        var freeCompilerArgs =
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
-                    "-opt-in=kotlinx.coroutines.FlowPreview" +
-                    "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi" +
-                    "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi" +
-                    "-opt-in=androidx.compose.material.ExperimentalMaterialApi" +
-                    "-opt-in=androidx.compose.animation.ExperimentalAnimationApi" +
-                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
+                    " -opt-in=kotlinx.coroutines.FlowPreview" +
+                    " -opt-in=com.google.accompanist.pager.ExperimentalPagerApi" +
+                    " -opt-in=androidx.compose.foundation.ExperimentalFoundationApi" +
+                    " -opt-in=androidx.compose.material.ExperimentalMaterialApi" +
+                    " -opt-in=androidx.compose.animation.ExperimentalAnimationApi" +
+                    " -opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
 
         const val spotlessTarget = "*.gradle.kts"
     }

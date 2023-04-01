@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = AppConfig.namespace
+    namespace = AppConfig.namespaceDomain
     compileSdk = AppConfig.compileSdk
 
     defaultConfig {
@@ -28,6 +28,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = AppConfig.Kotlin.jvmTarget
+    }
+
+    buildFeatures {
+        // Disable unused AGP features
+        buildConfig = false
+        aidl = false
+        renderScript = false
+        resValues = false
+        shaders = false
     }
 }
 

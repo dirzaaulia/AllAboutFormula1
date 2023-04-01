@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dirzaaulia.smartphonespec.domain.data.model.Phone
+import com.dirzaaulia.smartphonespec.domain.model.Phone
 import com.dirzaaulia.smartphonespec.ui.common.CommonError
 import com.dirzaaulia.smartphonespec.ui.common.StaggeredVerticalGrid
 import com.dirzaaulia.smartphonespec.utils.Constant
@@ -78,7 +78,9 @@ fun Latest(
                     CommonError(
                         modifier = Modifier.fillMaxSize(),
                         errorMessage = throwable.message.commonErrorMessageIfEmpty(),
-                        retry = { viewModel.getLatestPhones() }
+                        retry = {
+//                            viewModel.getLatestPhones()
+                        }
                     )
                 }
         }

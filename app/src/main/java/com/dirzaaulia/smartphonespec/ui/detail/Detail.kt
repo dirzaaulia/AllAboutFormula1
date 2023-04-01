@@ -1,7 +1,6 @@
 package com.dirzaaulia.smartphonespec.ui.detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,8 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dirzaaulia.smartphonespec.domain.data.model.PhoneDetail
-import com.dirzaaulia.smartphonespec.domain.data.model.PhoneDetail.Companion.toMapDetail
+import com.dirzaaulia.smartphonespec.domain.model.PhoneDetail
+import com.dirzaaulia.smartphonespec.domain.model.PhoneDetail.Companion.toMapDetail
 import com.dirzaaulia.smartphonespec.ui.common.CommonLoading
 import com.dirzaaulia.smartphonespec.ui.common.NetworkImage
 import com.dirzaaulia.smartphonespec.ui.common.StaggeredVerticalGrid
@@ -49,7 +48,7 @@ fun Detail(
 
 
     LaunchedEffect(viewModel) {
-        viewModel.getPhoneDetail(slug)
+//        viewModel.getPhoneDetail(slug)
     }
 
     when (phoneDetailState) {
