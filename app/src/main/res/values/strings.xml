@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Smartphone Spec</string>
+    <string name="app_name">All About Formula 1</string>
     <string name="latest">Latest</string>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
 </resources>
