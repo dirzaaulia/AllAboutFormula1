@@ -1,13 +1,18 @@
-plugins {
-    id(Plugins.Project.app) version Version.toolsBuildGradle apply false
-    id(Plugins.Project.android) version Version.kotlinGradle apply false
-    id(Plugins.Project.kapt) version Version.kotlinGradle apply false
-    id(Plugins.Project.kotlinParcelize) version Version.kotlinGradle apply false
-    id(Plugins.Project.hilt) version Version.hilt apply false
-    id(Plugins.Project.spotless) version Version.spotless apply false
-    id(Plugins.Project.serialization) version Version.serialization apply false
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
-tasks.register(AppConfig.Task.clean, Delete::class){
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.org.jetbrains.kotlin.android) apply false
+}
+
+tasks.register("clean", Delete::class){
     delete(rootProject.buildDir)
 }

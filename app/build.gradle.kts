@@ -1,145 +1,104 @@
+/*
+ * Copyright 2023 Dirza Aulia
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import com.dirzaaulia.smartphonespec.SmartphoneSpecBuildType
+
 plugins {
-    id(Plugins.Module.app)
-    kotlin(Plugins.Module.android)
-    kotlin(Plugins.Module.kapt)
-    id(Plugins.Module.kotlinParcelize)
-    id(Plugins.Module.hilt)
-    id(Plugins.Module.spotless)
+    id("dirzaaulia.smartphonespec.application")
+    id("dirzaaulia.smartphonespec.application.compose")
+    id("dirzaaulia.smartphonespec.hilt")
 }
 
 android {
-    namespace = AppConfig.namespaceApp
-    compileSdk = AppConfig.compileSdk
-
     defaultConfig {
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
-        testInstrumentationRunner = AppConfig.testInstrumentationRunner
-    }
+        applicationId = "com.dirzaaulia.smartphonespec"
+        versionCode = 1
+        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
-    signingConfigs {
-        getByName(AppConfig.SigningConfigs.debug) {
-//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-//            storePassword = AppConfig.KeyStore.password
-//            keyAlias = AppConfig.KeyStore.alias
-//            keyPassword = AppConfig.KeyStore.password
-        }
-        create(AppConfig.SigningConfigs.release) {
-//            storeFile = file("D:\\AndroidStudio\\Keystore\\keystore.jks")
-//            storePassword = AppConfig.KeyStore.password
-//            keyAlias = AppConfig.KeyStore.alias
-//            keyPassword = AppConfig.KeyStore.password
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
         }
     }
 
     buildTypes {
-        getByName(AppConfig.SigningConfigs.debug) {
-            isMinifyEnabled = false
-            isShrinkResources = false
-            proguardFiles(
-                getDefaultProguardFile(AppConfig.ProGuard.name),
-                AppConfig.ProGuard.rules,
-            )
-            signingConfig = signingConfigs.getByName(AppConfig.SigningConfigs.debug)
+        val debug by getting {
+            applicationIdSuffix = SmartphoneSpecBuildType.DEBUG.applicationIdSuffix
         }
-        getByName(AppConfig.SigningConfigs.release) {
+        val release by getting {
             isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile(AppConfig.ProGuard.name),
-                AppConfig.ProGuard.rules,
-            )
-            signingConfig = signingConfigs.getByName(AppConfig.SigningConfigs.release)
+            applicationIdSuffix = SmartphoneSpecBuildType.RELEASE.applicationIdSuffix
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlin {
-        jvmToolchain {
-            this.languageVersion.set(JavaLanguageVersion.of(AppConfig.Kotlin.jvmVersion))
-        }
-    }
-
-    kotlinOptions {
-        jvmTarget = AppConfig.Kotlin.jvmTarget
-
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            // Avoid having to stutter experimental annotations all over the codebase
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=kotlinx.coroutines.FlowPreview",
-            "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-        )
-    }
-
-    buildFeatures {
-        compose = true
-        // Disable unused AGP features
-        buildConfig = false
-        aidl = false
-        renderScript = false
-        resValues = false
-        shaders = false
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Version.composeCompiler
     }
 
     packagingOptions {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+    namespace = "com.dirzaaulia.smartphonespec"
 }
 
 dependencies {
-    //Module
-    implementation(project(Dependencies.Project.data))
-    implementation(project(Dependencies.Project.domain))
 
-    // Implementation
-    implementation(Dependencies.Accompanist.implementation)
-    implementation(Dependencies.AndroidX.implementation)
-    implementation(Dependencies.AndroidX.Compose.implementation)
-    implementation(Dependencies.AndroidX.Lifecycle.implementation)
-    implementation(Dependencies.Coil.implementation)
-    implementation(Dependencies.Coroutines.implementation)
-    implementation(Dependencies.Hilt.implementation)
-    implementation(Dependencies.Kotlin.implementation)
-    implementation(Dependencies.Kotlin.Ktor.implementation)
-    implementation(Dependencies.Material.implementation)
-    implementation(Dependencies.Other.implementation)
-    implementation(Dependencies.Paging.implementation)
+    /**
+     * Project
+     */
+    implementation(project(":feature:latest"))
+    implementation(project(":feature:search"))
 
-    // Kapt
-    kapt(Dependencies.Hilt.kapt)
+    implementation(project(":core:data"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:model"))
 
-    // Debug Implementation
-    debugImplementation(Dependencies.Chucker.debugImplementation)
+    /**
+     * Android Test
+     */
+    androidTestImplementation(libs.androidx.navigation.testing)
+    androidTestImplementation(kotlin("test"))
 
-    // Release Implementation
-    releaseImplementation(Dependencies.Chucker.releaseImplementation)
+    /**
+     * Debug Implementation
+     */
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 
-    // Android Test Implementation
-    androidTestImplementation(Dependencies.AndroidX.Test.androidTestImplementation)
-    androidTestImplementation(Dependencies.JUnit.androidTestImplementation)
-}
-
-configure<com.diffplug.gradle.spotless.SpotlessExtension> {
-    kotlin {
-        ktlint()
-    }
-    kotlinGradle {
-        target(AppConfig.Kotlin.spotlessTarget)
-        ktlint()
-    }
+    /**
+     * Implementation
+     */
+    //Accompanist
+    implementation(libs.accompanist.systemuicontroller)
+    //AndroidX
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+    //Coil
+    implementation(libs.coil.kt)
+    //Material
+    implementation(libs.material)
+    //Timber
+    implementation(libs.timber)
 }
